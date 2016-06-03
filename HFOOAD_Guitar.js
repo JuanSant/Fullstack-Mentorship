@@ -19,7 +19,7 @@ var Guitar = (function(){
 	}
 
 	function setPrice(newPrice){
-		this.price = price;
+		this.price = newPrice;
 	}
 
 	function getBuilder() {
@@ -34,12 +34,65 @@ var Guitar = (function(){
 		return type;
 	}
 
+	function setType(selectedType){
+		switch(selectedType){
+			case "ACOUSTIC": 
+				selectedType = "acoustic";
+				break;
+			case "ELECTRIC":
+				selectedType = "electric";
+				break;
+			default:
+				console.log("Type not found.");
+				selectedType = "";
+				break;
+		}
+
+		this.type = selectedType;
+	}
+
+
 	function getBackWood(){
 		return backWood;
 	}
 
 	function getTopWood(){
 		return topWood;
+	}
+
+	function setWood(wood){
+		switch(wood){
+			case "INDIAN_ROSEWOOD":
+				wood = "Indian Rosewood";
+				break;
+			case "BRAZILLIAN_ROSEWOOD":
+				wood = "Brazillian Rosewood";
+				break;
+			case "MAHOGANY":
+				wood = "Mahogany";
+				break;
+			case "MAPLE":
+				wood = "Maple";
+				break;
+			case "COCOBOLO":
+				wood = "Cocobolo";
+				break;
+			case "CEDAR":
+				wood = "Cedar";
+				break;
+			case "ADIRONDACK":
+				wood = "Adirondack";
+				break;
+			case "ALDER":
+				wood = "Alder";
+				break;
+			case "SITKA":
+				wood = "Sitka";
+				break;
+			default:
+				console.log("Wood not found");
+				wood = "";
+		}
 	}
 
 })();
