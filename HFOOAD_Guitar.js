@@ -1,6 +1,25 @@
 var Guitar = (function(){
 	var serialNumber, builder, model, type, backWood, topWood, price;
 
+	//These simulate which is known as Enums so that the properties are frozen to prevent any other one from being added.
+	var TypeEnums = Object.freeze({"ACOUSTIC" : "acoustic", "ELECTRIC" : "electric"});
+	var WoodEmums = Object.freeze({"INDIAN_ROSEWOOD" : "Indian Rosewood", 
+								   "BRAZILLIAN_ROSEWOOD" : "Brazillian Rosewood",
+								   "MAHOGANY" : "Mahogany",
+								   "MAPLE" : "Maple",
+								   "CEDAR" : "Cedar",
+								   "ADIRONDACK" : "Adirondack",
+								   "ALDER" : "Alder",
+								   "SITKA": "Sitka"});
+	var BuilderEnums = Object.freeze({"FENDER" : "Fender",
+									  "MARTIN" : "Martin",
+									  "GIBSON" : "Gibson",
+									  "COLLINGS" : "Collings",
+									  "OLSON" : "Olson",
+									  "RYAN" : "Ryan",
+									  "PRS" : "Prs",
+									  "ANY" : "Prs"});
+
 	function Guitar(serialNumber, builder, model, type, backWood, topWood, price){
 		this.serialNumber = serialNumber;
 		this.builder = builder;
@@ -34,23 +53,6 @@ var Guitar = (function(){
 		return type;
 	}
 
-	function setType(selectedType){
-		switch(selectedType){
-			case "ACOUSTIC": 
-				selectedType = "acoustic";
-				break;
-			case "ELECTRIC":
-				selectedType = "electric";
-				break;
-			default:
-				console.log("Type not found.");
-				selectedType = "";
-				break;
-		}
-
-		this.type = selectedType;
-	}
-
 
 	function getBackWood(){
 		return backWood;
@@ -58,41 +60,6 @@ var Guitar = (function(){
 
 	function getTopWood(){
 		return topWood;
-	}
-
-	function setWood(wood){
-		switch(wood){
-			case "INDIAN_ROSEWOOD":
-				wood = "Indian Rosewood";
-				break;
-			case "BRAZILLIAN_ROSEWOOD":
-				wood = "Brazillian Rosewood";
-				break;
-			case "MAHOGANY":
-				wood = "Mahogany";
-				break;
-			case "MAPLE":
-				wood = "Maple";
-				break;
-			case "COCOBOLO":
-				wood = "Cocobolo";
-				break;
-			case "CEDAR":
-				wood = "Cedar";
-				break;
-			case "ADIRONDACK":
-				wood = "Adirondack";
-				break;
-			case "ALDER":
-				wood = "Alder";
-				break;
-			case "SITKA":
-				wood = "Sitka";
-				break;
-			default:
-				console.log("Wood not found");
-				wood = "";
-		}
 	}
 
 })();
@@ -150,7 +117,7 @@ var FindGuitarTester = (function(){
 	Inventory inventory = new Inventory();
 	initializeInventory(inventory);
 
-	Guitar whatErinLikes = new Guitar("", 0, "fender", "Stratocastor", "electric", "Alder", "Alder");
+	Guitar whatErinLikes = new Guitar("", 0, BuilderEnums.FENDER, "Stratocastor", TypeEnums.ELECTRIC, WoodEmums.ALDER, WoodEmums.ALDER);
 	Guitar guitar = inventory.search(whatErinLikes);
 
 	if(guitar != null){
@@ -162,9 +129,8 @@ var FindGuitarTester = (function(){
 		console.log("Sorry, Erin, we have nothing for you.");
 	}
 
-
+	function initializeInventory(inventory){
+		inventory.addGuitar("V95593", 1499.95, "Fender", "Stratocastor", "electric", "Alder", "Alder");
+	}
+	
 })();
-
-function initializeInventory(inventory){
-	inventory.addGuitar("V95593", 1499.95, "Fender", "Stratocastor", "electric", "Alder", "Alder");
-}
