@@ -1,7 +1,6 @@
 var Guitar = (function(){
 	var serialNumber, builder, model, type, backWood, topWood, price;
 
-	//These simulate which is known as Enums so that the properties are frozen to prevent any other one from being added.
 	var TypeEnums = Object.freeze({"ACOUSTIC" : "acoustic", "ELECTRIC" : "electric"});
 	var WoodEmums = Object.freeze({"INDIAN_ROSEWOOD" : "Indian Rosewood", 
 								   "BRAZILLIAN_ROSEWOOD" : "Brazillian Rosewood",
@@ -86,28 +85,32 @@ var Inventory = (function() {
 		return null;
 	}
 
-	function search(guitar) {
+	function search(searchGuitar) {
+
+		searchGuitar = new Guitar(searchGuitar);
+		matchingGuitars = [];
 
 		//SerianNumer and price not included since they're unique
 		for (var i = 0; i <= guitars.length; i++) {
 			var builder = guitar.getBuilder();
-			if((builder != null) && (builder != "") && (builder==guitar.getBuilder())) continue;
+			if(searchGuitar.getBuilder() != guitar.getBuilder()) continue;
 
-			var model = guitar.getModel();
-			if((model != null) && (model != "") && (model == guitar.getModel())) continue;
+			var model = searchGuitar.getModel().toLowerCase();
+			if((model != null) && (model != "") && (model == guitar.getModel().toLowerCase())) continue;
 
-			var type = guitar.getType();
-			if((type != null) && (type != "") && (type == guitar.getType())) continue;
+			
+			if( searchGuitar.getType() != guitar.getType()) continue;
 
-			var backWood = guitar.getBackWood();
-			if((backWood != null) && (backWood != "") && (backWood == guitar.getBackWood())) continue;
+			
+			if( searchGuitar.getBackWood() != guitar.getBackWood()) continue;
 
-			var topWood = guitar.getTopWood();
-			if((topWood != null) && (topWood != "") && (topWood == guitar.getTopWood())) continue;
+			
+			if(searchGuitar.getTopWood() != guitar.getTopWood()) continue;
 
+			matchingGuitars.push(guitar);
 		}
 
-		return null;
+		return matchingGuitars;
 	}
 
 })();
@@ -130,7 +133,8 @@ var FindGuitarTester = (function(){
 	}
 
 	function initializeInventory(inventory){
-		inventory.addGuitar("V95593", 1499.95, "Fender", "Stratocastor", "electric", "Alder", "Alder");
+	inventory.addGuitar("V95593", 1499.95, "Fender", "Stratocastor", "electric", "Alder", "Alder");
 	}
-	
+
 })();
+
