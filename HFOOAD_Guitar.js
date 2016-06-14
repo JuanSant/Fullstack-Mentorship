@@ -1,4 +1,27 @@
-var Guitar = (function(){
+//Modules Manager
+var Modules = (function Manager() {
+	var modules = {};
+
+	function define(name, deps, impl){
+		for (var i = 0; i < deps.length; i++) {
+			deps[i] = modules[deps[i]];
+		}
+
+		modules[name] = impl.apply(impl, deps);
+	}
+
+	function get(name) {
+		return modules[name];
+	}
+
+	return{
+		define : define,
+		get : get
+	};
+
+})();
+
+Modules.define("Guitar", [], function(){
 	var serialNumber, builder, model, type, backWood, topWood, price;
 
 	var TypeEnums = Object.freeze({"ACOUSTIC" : "acoustic", "ELECTRIC" : "electric"});
@@ -61,25 +84,38 @@ var Guitar = (function(){
 		return topWood;
 	}
 
-})();
+	var guitarAPI{
+		TypeEnums : TypeEnums,
+		WoodEmums : WoodEmums,
+		BuilderEnums : BuilderEnums,
+		Guitar : Guitar,
+		getBuilder : getBuilder,
+		getType : getType,
+		getModel : getModel,
+		getPrice : getPrice,
+		getTopWood : getTopWood,
+		getBackWood : getBackWood
+	}
 
-var Inventory = (function() {
-	var guitars ;
-	Guitar guitar;
+	return guitarAPI;
+}); 
+
+Modules.define("Inventory", ["Guitar"], function() {
+
 
 	function Inventory(){
 		guitars = [];
 	}
 
 	function addGuitar(serialNumber, price, builder, model, type, backWood, topWood){
-		guitar = new Guitar(serialNumber, price, builder, model, type, backWood, topWood);
-		guitars.push(guitar);
+		Guitar.Guitar(serialNumber, price, builder, model, type, backWood, topWood);
+		guitars.push(Guitar);
 	}
 
 	function getGuitar(serialNumber) {
 		for (var i = 0; i <= guitars.length; i++) {
-			if(guitar.getSerialNumber() == serialNumber){
-				return guitar;
+			if(Guitar.getSerialNumber() == serialNumber){
+				return Guitar;
 			}
 		}
 		return null;
@@ -93,29 +129,38 @@ var Inventory = (function() {
 		//SerianNumer and price not included since they're unique
 		for (var i = 0; i <= guitars.length; i++) {
 			var builder = guitar.getBuilder();
-			if(searchGuitar.getBuilder() != guitar.getBuilder()) continue;
+			if(searchGuitar.getBuilder() != Guitar.getBuilder()) continue;
 
 			var model = searchGuitar.getModel().toLowerCase();
-			if((model != null) && (model != "") && (model == guitar.getModel().toLowerCase())) continue;
+			if((model != null) && (model != "") && (model == Guitar.getModel().toLowerCase())) continue;
 
 			
-			if( searchGuitar.getType() != guitar.getType()) continue;
+			if( searchGuitar.getType() != Guitar.getType()) continue;
 
 			
-			if( searchGuitar.getBackWood() != guitar.getBackWood()) continue;
+			if( searchGuitar.getBackWood() != Guitar.getBackWood()) continue;
 
 			
-			if(searchGuitar.getTopWood() != guitar.getTopWood()) continue;
+			if(searchGuitar.getTopWood() != Guitar.getTopWood()) continue;
 
-			matchingGuitars.push(guitar);
+			matchingGuitars.push(Guitar);
 		}
 
 		return matchingGuitars;
 	}
 
-})();
+	var inventoryAPI{
+		Inventory : Inventory,
+		addGuitar : addGuitar,
+		getGuitar : getGuitar,
+		search : search
+	}
 
-var FindGuitarTester = (function(){
+	return inventoryAPI;
+
+} );
+
+Modules.define("FindGuitarTester", ["Guitar", "Inventory"], function(){
 
 	Inventory inventory = new Inventory();
 	initializeInventory(inventory);
@@ -136,5 +181,4 @@ var FindGuitarTester = (function(){
 	inventory.addGuitar("V95593", 1499.95, "Fender", "Stratocastor", "electric", "Alder", "Alder");
 	}
 
-})();
-
+} );
