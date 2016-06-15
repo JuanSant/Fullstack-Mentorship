@@ -128,7 +128,7 @@ Modules.define("Inventory", ["Guitar"], function() {
 
 		//SerianNumer and price not included since they're unique
 		for (var i = 0; i <= guitars.length; i++) {
-			var builder = guitar.getBuilder();
+			
 			if(searchGuitar.getBuilder() != Guitar.getBuilder()) continue;
 
 			var model = searchGuitar.getModel().toLowerCase();
@@ -166,19 +166,27 @@ Modules.define("FindGuitarTester", ["Guitar", "Inventory"], function(){
 	initializeInventory(inventory);
 
 	Guitar whatErinLikes = new Guitar("", 0, BuilderEnums.FENDER, "Stratocastor", TypeEnums.ELECTRIC, WoodEmums.ALDER, WoodEmums.ALDER);
-	Guitar guitar = inventory.search(whatErinLikes);
+	var matchingGuitars = inventory.search(whatErinLikes);
 
-	if(guitar != null){
-		console.log("Erin, you might like this " + guitar.getBuilder() + " " + 
-					guitar.getModel() + " " + guitar.getType() + " guitar:\n " + 
-					guitar.getBackWood() + " back and sides, \n " + guitar.getTopWood() + 
-					" top.\n You can have it for only $" + guitar.getPrice() + "!");
+	if(!!matchingGuitars){
+		console.log("Erin, you might like these guitars:");
+
+		for (var i = 0; i <= matchingGuitars.length; i++) {
+			console.log(" We have a " +
+						Guitar.getBuilder() + " " + Guitar.getModel() + " " +
+						Guitar.getType() + " guitar:\n " +
+						Guitar.getBackWood() + " back and sides,\n " +
+						Guitar.getTopWood() + "top.\n You can have it for only: $" +
+						Guitar.getPrice() + "!\n -----");
+		}
+
+
 	}else{
 		console.log("Sorry, Erin, we have nothing for you.");
 	}
 
 	function initializeInventory(inventory){
-	inventory.addGuitar("V95593", 1499.95, "Fender", "Stratocastor", "electric", "Alder", "Alder");
+		inventory.addGuitar("V95593", 1499.95, "Fender", "Stratocastor", "electric", "Alder", "Alder");
 	}
 
 } );
