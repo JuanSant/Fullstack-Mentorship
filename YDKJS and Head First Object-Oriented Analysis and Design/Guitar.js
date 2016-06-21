@@ -29,4 +29,4 @@ var guitarAPI{
 	getGuitarSpec : getGuitarSpec
 }
 
-return guitarAPI;
+export guitarAPI;
