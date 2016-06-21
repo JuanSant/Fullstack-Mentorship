@@ -53,4 +53,4 @@ var inventoryAPI{
 	search : search
 }
 
-return inventoryAPI;
+export inventoryAPI;
