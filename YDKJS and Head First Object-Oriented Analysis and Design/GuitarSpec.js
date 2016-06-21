@@ -63,4 +63,4 @@ var guitarSpecAPI{
 	getBackWood : getBackWood
 }
 
-return guitarSpecAPI;
+export guitarSpecAPI;
