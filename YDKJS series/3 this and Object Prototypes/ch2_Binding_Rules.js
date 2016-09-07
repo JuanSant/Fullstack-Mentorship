@@ -35,3 +35,14 @@ var obj = {
 };
 
 fn.call( obj ); //4 -Call forcing "this" to be obj
+
+//--new Binding--//
+//Rule in which is necessary to use the word "new" that suppose to construct a new object 
+//and set that new object as the "this" for the call of function.
+function newBinding() {
+	this.d = d;
+}
+
+var x = new newBinding( 2 );
+
+console.log(x.d) //2
