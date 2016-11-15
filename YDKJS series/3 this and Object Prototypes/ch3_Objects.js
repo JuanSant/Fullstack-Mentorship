@@ -218,3 +218,14 @@ Object.keys( myEnumerableObj ); //["p"]
 Object.getOwnPropertyNames(myEnumerableObj); // ["o", "p"]
 
 //Iteration
+//While "for..in" iterates only over indices from array, 
+//"for..of" iterates directly over the values
+//which is part of an ES6 implementation for ES5 @@iterator buil-in object
+var myIteratedArray = [1, 2, 3];
+
+for (var k of myIteratedArray){
+	console.log(k);
+}
+//1
+//2
+//3
