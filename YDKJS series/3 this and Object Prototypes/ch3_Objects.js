@@ -229,3 +229,14 @@ for (var k of myIteratedArray){
 //1
 //2
 //3
+
+
+//By using iterator from ES6, it's possible to iterate
+//over values in array through the use of next() method.
+var it= myIteratedArray[Symbol.iterator]();
+
+it.next(); // {value : 1, done: false}
+it.next(); // {value : 2, done: false}
+it.next(); // {value : 3, done: false}
+it.next(); // { done: true}
+
