@@ -46,3 +46,24 @@
 
 //Mixins
 //JS doesn't count with "classes" to instantiate only objects, so they're not copied to others, they just get linked together.
+//It's possible to fake the missing copy behavior of classes in JavaScript mixins. There are two types: explicit and implicit.
+
+//-Explicit Mixins
+//Since JS doesn't count with classes, it uses object copies from one to another, respectively.
+//Technically, functions are not actually duplicated, but rather references to the functions are copied.
+//In this case, unlike class-oriented languages, it's necessary to use explicit references for each function
+//to use as a maner of Explicit pseudo-polymorphism and since this could lead to harder-to-read and harder-to-maintain code
+//should be avoided because the cost outweights the benefit in most respects.
+//What mixins do is to duplicate a reference to the shared function instead of the function itself. In case of new properties
+//are added to one of the "classes/Objects", it won't affect at all the child or parent class.
+//However, this doesn't occur with arrays, since both "parent and child classes" reference the same source, so if one of them
+//changes its value, the other will get those updates too.
+//Through explicit mixin, devs are able to partially emulate the behavior of "multiple inheritance",
+//but there's no direct way to handle collisions or other problems that could come up with this emulation.
+//It exists many workarounds but require more effort than the pay-off.
+
+//--Parasitic Inheritance
+//This includes both explicit and implicit mixins, in which a copy is made initially from parent class, 
+//then mixin the child class (object) definition and pass of the new composed obj as child instance.
+
+//-Implicit Mixins
