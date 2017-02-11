@@ -67,3 +67,6 @@
 //then mixin the child class (object) definition and pass of the new composed obj as child instance.
 
 //-Implicit Mixins
+//This mixing basically consists on borrowing one object function or properties by calling it from another object, 
+//so the assignments that the 1st object makes, are applied agains the 2nd object. That's why it's said 
+//we can "mix in" an object behjavior with or into another one.
