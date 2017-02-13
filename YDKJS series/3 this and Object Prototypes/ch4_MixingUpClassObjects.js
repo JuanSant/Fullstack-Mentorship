@@ -69,4 +69,6 @@
 //-Implicit Mixins
 //This mixing basically consists on borrowing one object function or properties by calling it from another object, 
 //so the assignments that the 1st object makes, are applied agains the 2nd object. That's why it's said 
-//we can "mix in" an object behjavior with or into another one.
+//we can "mix in" an object behavior with or into another one.
+
+//To Conclude, faking classes in JS can cause more problems for future coding than solving real problems.
