@@ -88,3 +88,15 @@ Object.getPrototypeOf( x ) === Foo1.prototype; //true
 
 //when calling the new Foo1(), the result is two objects link to each other. That's it.
 //That mechanism is called "prototypal inheritance"
+
+//Commonly inheritance implies a copy operation,  but JS instead creates a link between two objects,
+//where one object can delegate property/function access to another object.
+
+//On the other hand, differential inheritance pretends that mental model is more important than what is
+//physically occurring in the language. It overlooks the fact that an object is not actually
+//differentialy constructed, but is instead built with specific characteristics, alongside some gaps
+//that pretend to be filled with the delegation behavior.
+
+//--Constructors --
+//Functions aren't constructors, but function calls are "constructor" calls if "new" keyword is used.
+
