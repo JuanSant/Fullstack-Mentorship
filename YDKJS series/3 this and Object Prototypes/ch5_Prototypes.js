@@ -98,5 +98,23 @@ Object.getPrototypeOf( x ) === Foo1.prototype; //true
 //that pretend to be filled with the delegation behavior.
 
 //--Constructors --
-//Functions aren't constructors, but function calls are "constructor" calls if "new" keyword is used.
+//Functions aren't constructors, but function calls are "constructor calls" if "new" keyword is used.
+
+function Foo3(name){
+  this.name = name;
+}
+
+Foo3.prototype.myName = function (){
+  return this.name;
+}
+
+//a&b endup with an internal [[Prototype]] linkage to Foo3.prototype
+var a = new Foo3("a");
+var b = new Foo3("b");
+
+//When myName is not found, respectively, it's instead found via delegation on Foo3.prototype
+a.myName(); //a
+b.myName(); //b
+
+//--Constructor Redux--
 
