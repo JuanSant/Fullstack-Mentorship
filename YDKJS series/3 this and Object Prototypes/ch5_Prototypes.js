@@ -117,4 +117,37 @@ a.myName(); //a
 b.myName(); //b
 
 //--Constructor Redux--
+//The ".constructor" property on Foo.prototype is there by default on the object created
+//when Foo the function is declared. If a new object is created and its prototype object reference is replaced,
+//it won't get the ".constructor" on it.
+
+//--(Prototypal) Inheritance--
+function Foo4(name) {
+  this.name = name;
+}1
+
+Foo4.prototype.myName = function(){
+  return this.name;
+};
+
+function Bar4(name, label) {
+  Foo4.call (this, name);
+  this.label = label;
+}
+
+//new Bar4 prototype linked to Foo4.prototype
+Bar4.prototype = Object.create(Foo4.prototype);
+//here the Bar4.prototype.constructor is gone so it'd be necessary
+//to include it manually in case of needing it.
+//Object.create(...) creates a "new" object out of thin air, and 
+//links that new object's internal [[Prototype]] to the object you specify (Foo4.prototype in this case)
+
+Bar4.prototype.myLabel = function (){
+  return this.label;
+};
+
+var g = new Bar4( "g", "obj g");
+
+g.myName(); //"g"
+g.myLabel(); //"obj g"
 
