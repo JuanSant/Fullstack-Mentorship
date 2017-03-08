@@ -151,3 +151,61 @@ var g = new Bar4( "g", "obj g");
 g.myName(); //"g"
 g.myLabel(); //"obj g"
 
+//this makes Bar4 prototype be another reference to Foo4.prototype,
+//so it links Bar4 to the same object as Foo4, which is Foo4.prototype.
+//Thus, if Bar4.prototype.myLabel is changed, it's going to update Foo4.prototype
+//*should be avoided*
+Bar4.prototype = Foo4.prototype; 
+
+//This creates an object linked to Foo4.prototype, but uses the Foo4 "constructor call".
+//In case of that function having side-effects, they will happen at the time of this linking
+//rather than only when the Bar4() "children" are created.
+Bar4.prototype = new Foo4();
+
+//The best option is to use Object.create(...) to make a new object
+//that's properly linked, but throwing the old one away, 
+//instead of modifying the existing default object has been provided.
+
+//Pre-ES6
+//throws away default existing Bar4.prototype
+Bar4.prototype = Object.create( Foo4.prototype );
+
+//ES6+
+// modifies existing Bar4.prototype
+Object.setPrototypeOf( Bar4.prototype, Foo4.prototype );
+
+//--Inspecting "class" relationships
+//Introspection is called when it's wanted to inspect an instance
+//for its inheritance ancestry.
+
+function Foo5(){
+  console.log("test");
+}
+
+Foo5.prototype.blah = {};
+
+var h = Foo5();
+
+//Here is where introspection is applied through the use of instanceof
+h instanceof Foo5; //true
+//"in the entire [[Prototype]] chain of h, 
+//does the object arbitrarily pointed to by Foo5.prototype ever appear?"
+
+//To inspect  relationshion between objects, it's necessary to use isPrototypeOf();
+h.isPrototypeOf(b);
+//does h appear anywhere in b's [[Prototype]] chain?
+
+//The .__proto__ property retrieves the internal [[Prototype]] of an object as a reference.
+//It exists only on the built-in Object.prototype, along with the other common utilities.
+//Looks like a property but it's more a getter/setter
+h.__proto__ === Foo5.prototype; //true
+
+//The [[Prototype]] of an existing object shouldn't be changed generally.
+//Object [[Prototype]] linkage should be treated as a read-only characteristic.
+//double underscore could be found in JS community unoficially as "dunder", (e.g. dunder proto)
+
+//--Object Links--/
+//The [[Prototype]] mechanism is an internal link that exists on one object
+//which references some other object
+//The linkage is exercised when a property/method reference is made against the first 
+//object, and no such property/method exists.
