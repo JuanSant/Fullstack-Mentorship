@@ -209,3 +209,20 @@ h.__proto__ === Foo5.prototype; //true
 //which references some other object
 //The linkage is exercised when a property/method reference is made against the first 
 //object, and no such property/method exists.
+//When the object cannot find the property/method, its [[Prototype]] is followed.
+//This series of links between forms is called "prototype chain".
+
+//Creating Links
+var Foo6 = {
+    something: function(){
+        console.log("Tell me something...")
+    }
+};
+
+var Bar6 = Object.create( Foo6 );
+//Object.create() creates a new object linked to the object specified, which gives us
+//all the power (delegation) of the [[Prototype]] mechanism, but without any of the
+//unnecessary complication of "new" functions acting as classes and constructor calls.
+//By doing an Object.create(null), an empty object will be created and cannot delegate anywhere.
+
+Bar6.something(); //Tell me something...
