@@ -226,3 +226,27 @@ var Bar6 = Object.create( Foo6 );
 //By doing an Object.create(null), an empty object will be created and cannot delegate anywhere.
 
 Bar6.something(); //Tell me something...
+
+//The special empty-[[Prototype]] are often called "dictionaries" as they're used
+//for storing data in properties, this is because they have no possible
+//surprise effects from any delegated properties/functions on the [[Prototype]] chain.
+
+//The only thing we should care about is objects linked together for delegation, and Object.create()
+//gives us that linkage without all the class cruft.
+
+//--Delegation design Pattern
+var anotherObject = {
+    cool : function(){
+        console.log("cool!");
+    }
+};
+
+var myObject = Object.create( anotherObject );
+
+myObject.doCool = function(){
+    this.cool();
+};
+
+myObject.doCool(); //"cool!"
+//Delegation will tend to be less surprising/confusing if it's an internal implementation detail 
+//rather than plainly exposed in your API interface design.
