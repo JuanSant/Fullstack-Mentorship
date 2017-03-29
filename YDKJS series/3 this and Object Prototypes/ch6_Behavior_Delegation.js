@@ -109,3 +109,8 @@ b2.init( "b2" );
 
 b1.speak();
 b2.speak();
+//The same advantage was taken of [[Prototype]] delegation from b1 to Bar to Foo, so the same 3 objects are linked together.
+//By doing this, we simplify all the other stuff going on, because now we just set up objects
+//linked to each other, without needing all the cruft and confusion of things that look like classes, with constructors
+//and prototypes and new calls.
+
