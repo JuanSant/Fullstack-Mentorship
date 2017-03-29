@@ -50,3 +50,62 @@ XYZ.outputTaskDetails = function(){
 //The JS specification does not control how browser developer tools should represent specific values/structures
 //to a developer, so each browser/engine is free to interpret such things as they see fit. As such, browsers/tools
 //don't always agree.
+
+//When you code with OLOO and behavior delegation as your design pattern, who "constructed"
+//(that is, which function was called with "new") some object is an irrelevant detail.
+
+//--Mental Models
+//--Comparison between OLOO and OO
+
+//-OO Example
+
+function Foo(who){
+    this.me = who;
+}
+
+function.prototype.identify = function(){
+    return "I am" + this.me;
+};
+
+function Bar(who){
+        Foo.call(this, who);
+}
+
+Bar.prototype = Object.create( Foo.prototype );
+
+Bar.prototype.speak = function(){
+    alert("Hello, " + this.identify() + "." );
+};
+
+var b1 = new Bar("b1");
+var b2 = new Bar("b2");
+
+b1.speak();
+b2.speak();
+//Parent class Foo, inherited by child class Bar, which is instantiated twice as b1 and b2. What we have
+//is b1 delegating to Bar.prototype which delegates to Foo.prototype.
+
+
+//--OLOO example
+var Foo2 = {
+    init : function(who){
+        this.me = who;
+    },
+    identify: function(){
+        return "I am " + this.me;
+    }
+};
+
+var Bar = Object.create( Foo );
+
+Bar.speak = function(){
+    alert("Hello, " + this.identify() + ".");
+};
+
+var b1 = Object.create( Bar );
+b1.init( "b1" );
+var b2 = Object.create( Bar );
+b2.init( "b2" );
+
+b1.speak();
+b2.speak();
