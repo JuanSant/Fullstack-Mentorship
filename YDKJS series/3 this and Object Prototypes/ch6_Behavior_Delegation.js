@@ -167,3 +167,27 @@ $( document ).ready( function(){
         btn1.build( $body );
         btn2.build( $body );
 });
+
+//with the OLOO-style approach, we don't think of Widget as a parent and Button as a child. Rather,
+//Widget is just an object and is sort of a utility collection that any specific type of widget might
+//want to delegate to, and Button is also just a stand-alone object (with a delegation link to Widget).
+
+//From design pattern perspective, were chosen different names that are more descriptive of what
+//task does specifically. The initialization methods are called init() and setup()
+//By doing so, one avoids the ugliness of the explicit pseudo-polymorphic calls (Widget.call),
+//as you can see by the simple, relative, delegated calls to this.init() and this.insert().
+
+//With class constructors, you are "forced" to do both construction and initialization in the same step.
+//However, there are many cases where being able to do these two steps separately is more flexible.
+
+//OLOO supports better the principle of separation of concerns, where creation and initialization are not 
+//necessarily conflated into the same operation.
+
+//--Simpler Design
+//Besides OLOO provides simpler code, behavior delegation as a pattern can actually lead to
+//simpler code architecture.
+
+//For this example, we need two controller objects, one for handling the login form
+//of a web page, and another for actually handling the authentication (communication) with the server.
+//Also is needed a utility helper for making the Ajax communication to the server.
+
