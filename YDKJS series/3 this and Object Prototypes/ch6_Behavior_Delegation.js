@@ -253,3 +253,36 @@ AuthController.accepted = function(){
 AuthController.rejected = function(err){
     this.failure("Auth Failed: " + err)
 };
+
+//doesn't need to be instantiated through calling it along with "new" word, since it's just an object
+AuthController.checkAuth();
+
+//to create more additional objects in the delegation chain
+var controller1 = Object.create( AuthController );
+var controller2 = Object.create( AuthController );
+
+//With behavior delegation, AuthController and LoginController are just objects, horizontal peers of each other.
+//By using this approach, we are taking advance since we only have two entities instead of three, as it'd be with Class-style
+
+//It's not necessary a base Controller class to share behavior between the two.
+//Furthermore, there's no need for composition as delegation gives the two objects the ability to cooperate differentially as needed.
+//also, Polymorphism pitfalls of class-oriented design by not having the names be the same on both objects
+//instead, more descriptive names were set.
+
+//--Nicer Syntax--//
+//As of ES6, we can use concise method declarations in any object literal, so an object in OLOO style can be declared
+//this way
+var LoginController = {
+    errors: [],
+    getUser(){
+        //
+    },
+    getPassword(){
+        //
+    }
+};
+
+//link AuthController to delegate to LoginController
+Object.setPrototypeOf( AuthController, LoginController);
+
+//--Unlexical
