@@ -286,3 +286,16 @@ var LoginController = {
 Object.setPrototypeOf( AuthController, LoginController);
 
 //--Unlexical
+//short-hand functions become anonymous function expressions, so they get harder to work since have no
+//identifier name, while the named function expressions have lexical name identifier.
+//Also named functions are useful for self-reference, which is not possible with concise methods.
+
+var Foo2 = {
+    //anonymous function
+    bar: function(x) {
+        if(x < 10)
+    },
+    
+    //named function
+    baz: function baz() {}
+};
