@@ -293,9 +293,24 @@ Object.setPrototypeOf( AuthController, LoginController);
 var Foo2 = {
     //anonymous function
     bar: function(x) {
-        if(x < 10)
+        if(x < 10){
+            return Foo2.bar( x * 2 );
+        }
+        return x;
     },
     
     //named function
-    baz: function baz() {}
+    baz: function baz(x) {
+        if(x < 10){
+            return baz( x * 2 );
+        }
+        return x;
+    }
 };
+
+//To use a real self-reference, the function object's name identifier is the best way to acomplish that.
+
+//--Introspection--/
+//Inspecting an instance to find out what kind of object it is.
+//The primary goal of this is to reason about the structure/capabilities of the
+//object based on how it was created.
