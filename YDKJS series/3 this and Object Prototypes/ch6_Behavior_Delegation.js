@@ -314,3 +314,17 @@ var Foo2 = {
 //Inspecting an instance to find out what kind of object it is.
 //The primary goal of this is to reason about the structure/capabilities of the
 //object based on how it was created.
+
+//a common kind of introspection that many devs prefer over "instanceof" is called "duck typing"
+//"if it looks like a duck, and it quacks like a duck, it must be a duck"
+if(a1.something){
+    a1.something();
+}
+
+//An example of Duck typing is ES6 Promises.
+//If any object happens to have a then() method, ES6 Promises will assume unconditionally
+//that the objet is a "thenable" and therefore will expect it behave conformantly to all
+//standard behaviors of Promises.
+
+//In case of a non-Promise object that for whatever reason has a then() method,
+//it's better to keep it far away from the ES6 Promise mechanism to avoid broken assumptions.
