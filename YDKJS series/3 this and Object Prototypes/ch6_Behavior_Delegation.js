@@ -328,3 +328,9 @@ if(a1.something){
 
 //In case of a non-Promise object that for whatever reason has a then() method,
 //it's better to keep it far away from the ES6 Promise mechanism to avoid broken assumptions.
+
+//to do introspection of an object by using OLOO style, it's just necessary tu use isPrototypeOf() or getPrototypeOf()
+Foo.isPrototypeOf( Bar ); //true
+Object.getPrototypeOf( Bar ) === Foo;
+
+//OLOO is simpler than (but with all the same power of) class-style coding in JavaScript.
