@@ -52,3 +52,26 @@ class Button extends Widget{
 
 //If you start assigning functions around to different objects, in various different ways, the "super" mechanism
 //under the covers has to be re-bound each time.
+
+//For performance pragmatism reasons, "super" is not late bound (aka dynamically bound) like this is. Instead if's
+//derived at call-time from [[HomeObject]].[[Prototype]], where [[HomeObject]] us statically bound at creation time.
+
+class P{
+    foo() { console.log("P.foo"); }
+}
+
+class C extends P {
+    foo(){
+        super();
+    }
+}
+
+var c1 = new C();
+c1.foo(); //"P.foo"
+
+var D= {
+    foo: function(){ console.log ( "D.foo" ); }
+};
+
+//Link E to D for delegation
+var E = Object.create( D );
