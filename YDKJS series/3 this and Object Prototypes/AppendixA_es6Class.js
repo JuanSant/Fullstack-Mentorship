@@ -75,3 +75,19 @@ var D= {
 
 //Link E to D for delegation
 var E = Object.create( D );
+
+//manually bind "foo"'s [[HomeObject]] as E
+//and E.[[Prototype]] is "D", so thus
+// super() is D.foo()
+E.foo = C.prototype.foo.toMethod( E, "foo" );
+
+E.foo(); //D.foo
+
+//toMethod() clones the method, and takes homeObject as its first parameter
+//and the second parameter (optionally) sets a name for the new method ("which keep at foo")
+
+//Static-Dynamic
+//In traditional class-oriented languages, you never adjust the definition of a class later,
+//so the class design pattern doesn't suggest such capabilities. But one of the most
+//powerful parts of JS is that it's Dynamic, and the definition of any object is (unless 
+//you make it immutable) a fluid and mutable thing.
